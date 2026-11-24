@@ -1,0 +1,645 @@
+/* ==========================================================================
+   DOM Lab — light & dark dashboard themes via CSS custom properties
+   ========================================================================== */
+
+:root {
+  --color-bg: #f6f5f1;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f0efeb;
+  --color-text: #1c2733;
+  --color-muted: #5d6b7a;
+  --color-accent: #1d6fe0;
+  --color-accent-strong: #1558b3;
+  --color-accent-soft: #e4eefb;
+  --color-accent-contrast: #ffffff;
+  --color-border: #e0ddd6;
+  --color-error: #b3261e;
+  --color-success: #1a7f37;
+  --color-focus: #1d6fe0;
+  --color-overlay: rgba(20, 28, 38, 0.55);
+  --shadow: 0 1px 2px rgba(24, 34, 48, 0.06), 0 6px 18px rgba(24, 34, 48, 0.06);
+  --shadow-hover: 0 2px 4px rgba(24, 34, 48, 0.08), 0 10px 26px rgba(24, 34, 48, 0.1);
+  --radius: 16px;
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+[data-theme="dark"] {
+  --color-bg: #12171f;
+  --color-surface: #1b232e;
+  --color-surface-alt: #242f3d;
+  --color-text: #e9eef5;
+  --color-muted: #a2b1c2;
+  --color-accent: #5ba4f5;
+  --color-accent-strong: #8ac0f8;
+  --color-accent-soft: #253850;
+  --color-accent-contrast: #0c1420;
+  --color-border: #314054;
+  --color-error: #ff8a80;
+  --color-success: #6fd88f;
+  --color-focus: #8ac0f8;
+  --color-overlay: rgba(4, 8, 14, 0.72);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 6px 18px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.4), 0 10px 26px rgba(0, 0, 0, 0.4);
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+h1, h2, h3, p {
+  margin: 0;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Centered container: max 1100px, auto margins, 24px padding */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.site-header {
+  text-align: center;
+  padding: 24px 0 32px;
+}
+
+.badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
+  border: 1px solid var(--color-accent);
+  border-radius: 999px;
+  padding: 4px 14px;
+}
+
+.site-title {
+  font-family: var(--font-mono);
+  font-size: clamp(1.8rem, 5vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-top: 14px;
+}
+
+.site-intro {
+  color: var(--color-muted);
+  margin: 10px auto 0;
+  max-width: 52ch;
+}
+
+/* ==========================================================================
+   Layout grid — 1 column below 800px, 2 columns at 800px and up
+   ========================================================================== */
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 800px) {
+  .layout {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  .widget-wide {
+    grid-column: 1 / -1;
+  }
+}
+
+.widget {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.25s ease;
+}
+
+.widget:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.widget-title {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.widget-caption {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  margin-bottom: 16px;
+}
+
+.widget-text {
+  color: var(--color-muted);
+  margin-bottom: 16px;
+  max-width: 60ch;
+}
+
+.site-footer {
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  padding: 24px 0 40px;
+}
+
+/* ==========================================================================
+   Buttons and inputs
+   ========================================================================== */
+
+.btn {
+  font: inherit;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease,
+              transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.btn:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: none;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--color-accent-strong);
+}
+
+[data-theme="dark"] .btn-primary:hover:not(:disabled) {
+  background: var(--color-accent-strong);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.btn-outline:hover {
+  background: var(--color-accent-soft);
+}
+
+.btn-chip {
+  background: var(--color-surface-alt);
+  color: var(--color-text);
+  border-color: var(--color-border);
+  padding: 8px 16px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.btn-chip:hover {
+  border-color: var(--color-accent);
+}
+
+.btn-chip.is-active {
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  border-color: var(--color-accent);
+}
+
+.btn-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.field-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 14px 0 6px;
+}
+
+.text-input {
+  font: inherit;
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  transition: border-color 0.15s ease;
+}
+
+.text-input:focus {
+  border-color: var(--color-accent);
+}
+
+.select-input {
+  border-radius: 999px;
+}
+
+.text-input[aria-invalid="true"] {
+  border-color: var(--color-error);
+}
+
+/* ==========================================================================
+   Widget 1 — clock + stats
+   ========================================================================== */
+
+.greeting {
+  font-size: 1.05rem;
+  color: var(--color-muted);
+}
+
+.clock {
+  font-family: var(--font-mono);
+  font-size: clamp(2.4rem, 8vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  margin-top: 4px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.stat {
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 12px 10px;
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ==========================================================================
+   Toast — slides in from the corner, auto-removes after 2.5s
+   ========================================================================== */
+
+.toast-region {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.toast {
+  background: var(--color-text);
+  color: var(--color-bg);
+  padding: 12px 18px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-hover);
+  font-size: 0.9rem;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateX(24px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.toast.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ==========================================================================
+   Widgets 3 & 4 — filter + search + sort cards
+   ========================================================================== */
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.project-grid {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+@media (min-width: 800px) {
+  .widget-wide .project-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+.card {
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.5s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.card.is-hidden {
+  display: none;
+}
+
+.card-title {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.card-desc {
+  font-size: 0.875rem;
+  color: var(--color-muted);
+}
+
+.empty-message {
+  margin-top: 16px;
+  padding: 14px;
+  text-align: center;
+  color: var(--color-muted);
+  background: var(--color-surface-alt);
+  border: 1px dashed var(--color-border);
+  border-radius: 12px;
+}
+
+/* ==========================================================================
+   Widget 5 — click counter
+   ========================================================================== */
+
+.counter-line {
+  margin-bottom: 14px;
+}
+
+.counter-value {
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
+  color: var(--color-accent);
+}
+
+/* ==========================================================================
+   Widget 6 — progress bar
+   ========================================================================== */
+
+.progressbar {
+  width: 100%;
+  height: 22px;
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progressbar-fill {
+  width: 0%;
+  height: 100%;
+  background: var(--color-accent);
+  border-radius: 999px;
+  transition: width 0.05s linear;
+}
+
+/* ==========================================================================
+   Widget 7 — modal, fades and scales in
+   ========================================================================== */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--color-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 100;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.modal-overlay.is-open {
+  opacity: 1;
+}
+
+.modal-overlay[hidden] {
+  display: none;
+}
+
+.modal {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-hover);
+  padding: 26px;
+  width: min(420px, 100%);
+  transform: scale(0.94) translateY(8px);
+  transition: transform 0.2s ease;
+}
+
+.modal-overlay.is-open .modal {
+  transform: scale(1) translateY(0);
+}
+
+.modal-title {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  margin-bottom: 10px;
+}
+
+.modal-body {
+  color: var(--color-muted);
+  margin-bottom: 18px;
+}
+
+/* ==========================================================================
+   Widget 8 — accordion, panels slide open
+   ========================================================================== */
+
+.accordion {
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.accordion-item + .accordion-item {
+  border-top: 1px solid var(--color-border);
+}
+
+.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  padding: 14px 16px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.accordion-header:hover {
+  background: var(--color-surface-alt);
+}
+
+.accordion-icon {
+  font-weight: 400;
+  transition: transform 0.2s ease;
+}
+
+.accordion-header[aria-expanded="true"] .accordion-icon {
+  transform: rotate(45deg);
+}
+
+.accordion-panel {
+  padding: 0 16px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease, padding 0.25s ease;
+}
+
+.accordion-panel.is-open {
+  padding: 0 16px 14px;
+  max-height: 240px;
+}
+
+.accordion-panel p {
+  color: var(--color-muted);
+}
+
+.accordion-panel[hidden] {
+  display: none;
+}
+
+/* ==========================================================================
+   Widget 9 — form messages
+   ========================================================================== */
+
+.form-field {
+  margin-bottom: 12px;
+}
+
+.error-message {
+  min-height: 1.2em;
+  margin-top: 6px;
+  font-size: 0.875rem;
+  color: var(--color-error);
+}
+
+.success-message {
+  margin-top: 14px;
+  font-weight: 600;
+  color: var(--color-success);
+}
+
+/* ==========================================================================
+   Widget 10 — scroll reveal, fade-up on enter
+   ========================================================================== */
+
+.reveal-card {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.reveal-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Reduced motion — skip all transitions and animations
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+
+  .reveal-card {
+    opacity: 1;
+    transform: none;
+  }
+
+  .widget:hover,
+  .card:hover,
+  .btn:hover:not(:disabled) {
+    transform: none;
+  }
+}

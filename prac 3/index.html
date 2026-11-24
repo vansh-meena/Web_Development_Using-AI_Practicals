@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive DOM Lab</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-js="page">
+
+  <div class="container">
+
+    <header class="site-header">
+      <span class="badge">EXP3 · Vanilla JS</span>
+      <h1 class="site-title">Interactive DOM Lab</h1>
+      <p class="site-intro">Ten behaviours built by hand with plain browser APIs — no frameworks, no build step.</p>
+    </header>
+
+    <main class="layout">
+
+      <!-- Row 1 -->
+      <section class="widget" aria-labelledby="widget-live">
+        <h2 id="widget-live" class="widget-title">Live status</h2>
+        <p class="widget-caption">setInterval → textContent · requestAnimationFrame → textContent</p>
+
+        <p class="greeting" data-js="greeting">Hello</p>
+        <p class="clock" data-js="clock" role="timer" aria-label="Current time">00:00:00</p>
+
+        <div class="stats">
+          <div class="stat">
+            <span class="stat-value" data-js="stat" data-target="10">0</span>
+            <span class="stat-label">widgets</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value" data-js="stat" data-target="0">0</span>
+            <span class="stat-label">dependencies</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value" data-js="stat" data-target="100" data-suffix="%">0%</span>
+            <span class="stat-label">vanilla</span>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button type="button" class="btn btn-outline" data-js="theme-toggle" aria-pressed="false">Dark theme</button>
+          <button type="button" class="btn btn-primary" data-js="toast-btn">Fire a toast</button>
+        </div>
+        <div class="toast-region" data-js="toast-region" aria-live="polite"></div>
+      </section>
+
+      <section class="widget" aria-labelledby="widget-modal">
+        <h2 id="widget-modal" class="widget-title">Modal windows</h2>
+        <p class="widget-caption">focus() · KeyboardEvent.key · document.activeElement</p>
+        <p class="widget-text">Each button opens a dialog that traps Tab focus and closes on Escape, the close button, or a backdrop click.</p>
+        <div class="btn-row">
+          <button type="button" class="btn btn-primary" data-js="modal-open"
+                  data-modal-title="About this lab" data-modal-body="Every widget here is plain JavaScript. View source — that is the lesson.">What is this?</button>
+          <button type="button" class="btn btn-primary" data-js="modal-open"
+                  data-modal-title="Keyboard shortcuts" data-modal-body="Tab cycles inside the dialog, Shift+Tab goes back, and Escape closes it instantly.">Shortcuts</button>
+          <button type="button" class="btn btn-primary" data-js="modal-open"
+                  data-modal-title="Cleanup contract" data-modal-body="One AbortController removes every listener, and teardown() stops timers, animation frames and observers.">Cleanup</button>
+        </div>
+      </section>
+
+      <!-- Row 2 — full width -->
+      <section class="widget widget-wide" aria-labelledby="widget-projects">
+        <h2 id="widget-projects" class="widget-title">Filter, sort and search</h2>
+        <p class="widget-caption">event delegation · classList.toggle() · NodeList.forEach()</p>
+
+        <label class="field-label" for="project-search">Search projects</label>
+        <input class="text-input" type="search" id="project-search" data-js="search"
+               placeholder="Try “tracker” or “game”…" autocomplete="off">
+
+        <label class="field-label" for="project-sort">Sort projects</label>
+        <select class="text-input select-input" id="project-sort" data-js="sort-select">
+          <option value="newest">Newest first</option>
+          <option value="az">A to Z</option>
+        </select>
+
+        <div class="filter-row" data-js="filter-buttons" role="group" aria-label="Filter projects by category">
+          <button type="button" class="btn btn-chip is-active" data-filter="all" aria-pressed="true">all</button>
+          <button type="button" class="btn btn-chip" data-filter="web" aria-pressed="false">web</button>
+          <button type="button" class="btn btn-chip" data-filter="tools" aria-pressed="false">tools</button>
+          <button type="button" class="btn btn-chip" data-filter="games" aria-pressed="false">games</button>
+        </div>
+
+        <div class="project-grid" data-js="project-grid">
+          <article class="card" data-js="project-card" data-category="web" data-date="2026-11-18" data-title="Portfolio Site">
+            <h3 class="card-title">Portfolio Site</h3>
+            <p class="card-desc">A responsive personal portfolio built with semantic HTML.</p>
+          </article>
+          <article class="card" data-js="project-card" data-category="tools" data-date="2026-11-10" data-title="Habit Tracker">
+            <h3 class="card-title">Habit Tracker</h3>
+            <p class="card-desc">Track daily streaks with gentle reminders and charts.</p>
+          </article>
+          <article class="card" data-js="project-card" data-category="games" data-date="2026-11-02" data-title="Memory Match">
+            <h3 class="card-title">Memory Match</h3>
+            <p class="card-desc">Flip cards and pair them before the move counter hits par.</p>
+          </article>
+          <article class="card" data-js="project-card" data-category="web" data-date="2026-10-25" data-title="Recipe Finder">
+            <h3 class="card-title">Recipe Finder</h3>
+            <p class="card-desc">Search recipes by ingredient with instant filtering.</p>
+          </article>
+          <article class="card" data-js="project-card" data-category="tools" data-date="2026-10-14" data-title="Markdown Notes">
+            <h3 class="card-title">Markdown Notes</h3>
+            <p class="card-desc">Write notes in plain text and preview them styled.</p>
+          </article>
+          <article class="card" data-js="project-card" data-category="games" data-date="2026-10-05" data-title="Snake Classic">
+            <h3 class="card-title">Snake Classic</h3>
+            <p class="card-desc">The grid-and-growth arcade staple, keyboard only.</p>
+          </article>
+          <article class="card" data-js="project-card" data-category="tools" data-date="2026-09-27" data-title="Icon Library">
+            <h3 class="card-title">Icon Library</h3>
+            <p class="card-desc">A consistent 24px icon set drawn on a strict grid.</p>
+          </article>
+          <article class="card" data-js="project-card" data-category="games" data-date="2026-09-15" data-title="Quiz Runner">
+            <h3 class="card-title">Quiz Runner</h3>
+            <p class="card-desc">Answer trivia while your character outruns the clock.</p>
+          </article>
+        </div>
+
+        <p class="empty-message" data-js="no-results" hidden>No projects match your search.</p>
+      </section>
+
+      <!-- Row 3 -->
+      <section class="widget" aria-labelledby="widget-counter">
+        <h2 id="widget-counter" class="widget-title">Click counter</h2>
+        <p class="widget-caption">addEventListener("click") → textContent</p>
+        <p class="counter-line">Clicks so far: <strong class="counter-value" data-js="counter-value">0</strong></p>
+        <button type="button" class="btn btn-primary" data-js="counter-btn">Click me</button>
+      </section>
+
+      <section class="widget" aria-labelledby="widget-progress">
+        <h2 id="widget-progress" class="widget-title">Progress bar</h2>
+        <p class="widget-caption">requestAnimationFrame · setAttribute("aria-valuenow")</p>
+        <div class="progressbar" role="progressbar" aria-label="Loading progress"
+             aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-js="progress-bar">
+          <div class="progressbar-fill" data-js="progress-fill"></div>
+        </div>
+        <div class="btn-row">
+          <button type="button" class="btn btn-primary" data-js="progress-start">Start</button>
+          <button type="button" class="btn btn-outline" data-js="progress-reset">Reset</button>
+        </div>
+      </section>
+
+      <!-- Row 4 -->
+      <section class="widget" aria-labelledby="widget-accordion">
+        <h2 id="widget-accordion" class="widget-title">Accordion</h2>
+        <p class="widget-caption">event delegation · aria-expanded · hidden</p>
+        <div class="accordion" data-js="accordion">
+          <div class="accordion-item">
+            <button type="button" class="accordion-header" id="accordion-header-1"
+                    aria-expanded="false" aria-controls="accordion-panel-1">
+              What is the DOM?
+              <span class="accordion-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="accordion-panel" id="accordion-panel-1" role="region" aria-labelledby="accordion-header-1" hidden>
+              <p>The Document Object Model is the browser's live map of your page. JavaScript reads and changes it to make pages respond.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button type="button" class="accordion-header" id="accordion-header-2"
+                    aria-expanded="false" aria-controls="accordion-panel-2">
+              Why event delegation?
+              <span class="accordion-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="accordion-panel" id="accordion-panel-2" role="region" aria-labelledby="accordion-header-2" hidden>
+              <p>One listener on a parent handles clicks for all its children, even ones added later. Fewer listeners, simpler cleanup.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button type="button" class="accordion-header" id="accordion-header-3"
+                    aria-expanded="false" aria-controls="accordion-panel-3">
+              What is teardown?
+              <span class="accordion-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="accordion-panel" id="accordion-panel-3" role="region" aria-labelledby="accordion-header-3" hidden>
+              <p>Undoing your setup — removing listeners, stopping timers and observers — so nothing leaks when the page goes away.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="widget" aria-labelledby="widget-form">
+        <h2 id="widget-form" class="widget-title">Newsletter form</h2>
+        <p class="widget-caption">preventDefault() · aria-describedby · aria-live</p>
+        <form class="form" data-js="newsletter-form" novalidate>
+          <div class="form-field">
+            <label class="field-label" for="newsletter-name">Name</label>
+            <input class="text-input" type="text" id="newsletter-name" data-js="newsletter-name"
+                   name="name" required aria-describedby="newsletter-name-error">
+            <p class="error-message" id="newsletter-name-error" data-js="newsletter-name-error" aria-live="polite"></p>
+          </div>
+          <div class="form-field">
+            <label class="field-label" for="newsletter-email">Email</label>
+            <input class="text-input" type="email" id="newsletter-email" data-js="newsletter-email"
+                   name="email" required aria-describedby="newsletter-email-error">
+            <p class="error-message" id="newsletter-email-error" data-js="newsletter-email-error" aria-live="polite"></p>
+          </div>
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+          <p class="success-message" data-js="newsletter-success" aria-live="polite" hidden></p>
+        </form>
+      </section>
+
+      <!-- Scroll reveal — revealed cards placed around the page -->
+      <section class="widget widget-wide" aria-labelledby="widget-reveal">
+        <h2 id="widget-reveal" class="widget-title">Scroll reveal</h2>
+        <p class="widget-caption">IntersectionObserver → classList.add() · unobserve()</p>
+        <div class="project-grid">
+          <article class="card reveal-card" data-js="reveal"><h3 class="card-title">querySelector</h3><p class="card-desc">Find one element with a CSS selector.</p></article>
+          <article class="card reveal-card" data-js="reveal"><h3 class="card-title">addEventListener</h3><p class="card-desc">React to clicks, typing and keys.</p></article>
+          <article class="card reveal-card" data-js="reveal"><h3 class="card-title">classList</h3><p class="card-desc">Toggle styles by toggling classes.</p></article>
+          <article class="card reveal-card" data-js="reveal"><h3 class="card-title">textContent</h3><p class="card-desc">Update text safely, no HTML parsing.</p></article>
+          <article class="card reveal-card" data-js="reveal"><h3 class="card-title">createElement</h3><p class="card-desc">Build new nodes from scratch.</p></article>
+          <article class="card reveal-card" data-js="reveal"><h3 class="card-title">IntersectionObserver</h3><p class="card-desc">Know when an element scrolls into view.</p></article>
+          <article class="card reveal-card" data-js="reveal"><h3 class="card-title">setInterval</h3><p class="card-desc">Run something on a timer, then clear it.</p></article>
+          <article class="card reveal-card" data-js="reveal"><h3 class="card-title">AbortController</h3><p class="card-desc">Remove every listener in one call.</p></article>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">Built by hand for learning. View source — that is the lesson.</footer>
+  </div>
+
+  <!-- Modal lives at the end so it sits above everything when open -->
+  <div class="modal-overlay" data-js="modal-overlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" data-js="modal">
+      <h2 id="modal-title" class="modal-title" data-js="modal-title"></h2>
+      <p class="modal-body" data-js="modal-body"></p>
+      <button type="button" class="btn btn-primary" data-js="modal-close">Close dialog</button>
+    </div>
+  </div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

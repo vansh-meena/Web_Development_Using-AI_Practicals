@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vansh — Android Developer</title>
+  <meta name="description" content="Vansh — Android Developer and CS undergraduate at JECRC University, Jaipur. Building modern, performant Android apps with Kotlin and Jetpack Compose." />
+
+  <!-- Green favicon (inline SVG) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230a0f0d'/><text x='50' y='72' font-size='62' font-family='monospace' font-weight='bold' text-anchor='middle' fill='%2322c55e'>V</text></svg>" />
+
+  <!-- Google Fonts: Inter (body) + JetBrains Mono (headings/labels) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- ===== Navbar ===== -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#hero" class="nav__brand" aria-label="Vansh — home">
+        <span class="nav__brand-mark">V</span>
+        <span class="nav__brand-text">Vansh</span>
+      </a>
+
+      <nav class="nav__links" id="navLinks" aria-label="Primary">
+        <a href="#hero" class="nav__link is-active">About</a>
+        <a href="#skills" class="nav__link">Skills</a>
+        <a href="#projects" class="nav__link">Projects</a>
+        <a href="#experience" class="nav__link">Experience</a>
+        <a href="#resume" class="nav__link">Resume</a>
+        <a href="#contact" class="nav__link">Contact</a>
+      </nav>
+
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== 1. Hero / About ===== -->
+    <section id="hero" class="section hero">
+      <div class="container hero__inner reveal">
+        <p class="hero__greet">Hi, I'm</p>
+        <h1 class="hero__name">Vansh</h1>
+        <p class="hero__title" aria-label="Android Developer">
+          <span id="typed"></span><span class="cursor" aria-hidden="true"></span>
+        </p>
+        <p class="hero__intro">
+          Android developer and Computer Science undergraduate at JECRC University, Jaipur.
+          I build clean, performant mobile apps with Kotlin and Jetpack Compose — focused on
+          thoughtful UX, solid architecture, and shipping things that actually work.
+        </p>
+        <div class="hero__actions">
+          <a href="#projects" class="btn btn--primary">View Projects</a>
+          <a href="resume.pdf" download class="btn btn--ghost">Download Resume</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 2. Skills ===== -->
+    <section id="skills" class="section">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="section__tag">02 — Skills</span>
+          <h2 class="section__title">What I work with</h2>
+        </header>
+
+        <div class="skills__grid">
+          <article class="card skill-card reveal">
+            <h3 class="skill-card__title">Languages</h3>
+            <ul class="tags">
+              <li class="tag">Kotlin</li>
+              <li class="tag">Java</li>
+              <li class="tag">Python</li>
+              <li class="tag">C++</li>
+              <li class="tag">SQL</li>
+            </ul>
+          </article>
+
+          <article class="card skill-card reveal">
+            <h3 class="skill-card__title">Android / Mobile</h3>
+            <ul class="tags">
+              <li class="tag">Jetpack Compose</li>
+              <li class="tag">XML &amp; Views</li>
+              <li class="tag">MVVM</li>
+              <li class="tag">Room</li>
+              <li class="tag">Retrofit</li>
+              <li class="tag">Coroutines</li>
+              <li class="tag">Navigation</li>
+              <li class="tag">WorkManager</li>
+            </ul>
+          </article>
+
+          <article class="card skill-card reveal">
+            <h3 class="skill-card__title">Tools &amp; Platforms</h3>
+            <ul class="tags">
+              <li class="tag">Android Studio</li>
+              <li class="tag">Git &amp; GitHub</li>
+              <li class="tag">Firebase</li>
+              <li class="tag">Figma</li>
+              <li class="tag">Linux</li>
+              <li class="tag">Postman</li>
+            </ul>
+          </article>
+
+          <article class="card skill-card reveal">
+            <h3 class="skill-card__title">CS Fundamentals</h3>
+            <ul class="tags">
+              <li class="tag">Data Structures</li>
+              <li class="tag">Algorithms</li>
+              <li class="tag">OOP</li>
+              <li class="tag">DBMS</li>
+              <li class="tag">Operating Systems</li>
+              <li class="tag">Computer Networks</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 3. Projects ===== -->
+    <section id="projects" class="section">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="section__tag">03 — Projects</span>
+          <h2 class="section__title">Things I've built</h2>
+        </header>
+
+        <div class="projects__grid">
+          <article class="card project-card reveal">
+            <h3 class="project-card__title">TaskFlow</h3>
+            <p class="project-card__desc">
+              An offline-first task manager with reminders, priorities, and swipe actions,
+              backed by a local Room database so it works with no connection.
+            </p>
+            <ul class="tags tags--sm">
+              <li class="tag">Kotlin</li>
+              <li class="tag">Jetpack Compose</li>
+              <li class="tag">Room</li>
+              <li class="tag">MVVM</li>
+            </ul>
+            <div class="project-card__links">
+              <a href="https://github.com/" target="_blank" rel="noopener" class="link">Source &rarr;</a>
+            </div>
+          </article>
+
+          <article class="card project-card reveal">
+            <h3 class="project-card__title">WeatherCast</h3>
+            <p class="project-card__desc">
+              A location-aware weather app with hourly and 7-day forecasts, smooth animations,
+              and a clean Material 3 interface powered by a public weather API.
+            </p>
+            <ul class="tags tags--sm">
+              <li class="tag">Kotlin</li>
+              <li class="tag">Retrofit</li>
+              <li class="tag">Coroutines</li>
+              <li class="tag">OpenWeather API</li>
+            </ul>
+            <div class="project-card__links">
+              <a href="https://github.com/" target="_blank" rel="noopener" class="link">Source &rarr;</a>
+            </div>
+          </article>
+
+          <article class="card project-card reveal">
+            <h3 class="project-card__title">ExpenseTracker</h3>
+            <p class="project-card__desc">
+              A personal finance tracker with categorized entries, monthly summaries, and
+              visual charts to help users understand where their money goes.
+            </p>
+            <ul class="tags tags--sm">
+              <li class="tag">Kotlin</li>
+              <li class="tag">XML</li>
+              <li class="tag">Room</li>
+              <li class="tag">MPAndroidChart</li>
+            </ul>
+            <div class="project-card__links">
+              <a href="https://github.com/" target="_blank" rel="noopener" class="link">Source &rarr;</a>
+            </div>
+          </article>
+
+          <article class="card project-card reveal">
+            <h3 class="project-card__title">NewsPulse</h3>
+            <p class="project-card__desc">
+              A news aggregator with categorized feeds, search, and offline article saving,
+              built to practice clean architecture and RecyclerView performance.
+            </p>
+            <ul class="tags tags--sm">
+              <li class="tag">Java</li>
+              <li class="tag">Retrofit</li>
+              <li class="tag">RecyclerView</li>
+              <li class="tag">Glide</li>
+            </ul>
+            <div class="project-card__links">
+              <a href="https://github.com/" target="_blank" rel="noopener" class="link">Source &rarr;</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 4. Experience & Education ===== -->
+    <section id="experience" class="section">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="section__tag">04 — Journey</span>
+          <h2 class="section__title">Experience &amp; Education</h2>
+        </header>
+
+        <ol class="timeline">
+          <li class="timeline__item reveal">
+            <span class="timeline__marker" aria-hidden="true"></span>
+            <div class="timeline__body card">
+              <span class="timeline__date">2023 — 2027</span>
+              <h3 class="timeline__title">B.Tech in Computer Science &amp; Engineering</h3>
+              <p class="timeline__org">JECRC University, Jaipur</p>
+              <p class="timeline__desc">
+                Undergraduate degree focused on software, systems, and mobile development.
+                Active in coding clubs and hackathons.
+              </p>
+            </div>
+          </li>
+
+          <li class="timeline__item reveal">
+            <span class="timeline__marker" aria-hidden="true"></span>
+            <div class="timeline__body card">
+              <span class="timeline__date">Summer 2025</span>
+              <h3 class="timeline__title">Android Development Intern</h3>
+              <p class="timeline__org">Software Company (Remote)</p>
+              <p class="timeline__desc">
+                Built and shipped Compose UI features, wrote unit tests, and worked with
+                REST APIs and CI for an app used by thousands of users.
+              </p>
+            </div>
+          </li>
+
+          <li class="timeline__item reveal">
+            <span class="timeline__marker" aria-hidden="true"></span>
+            <div class="timeline__body card">
+              <span class="timeline__date">2024</span>
+              <h3 class="timeline__title">Smart India Hackathon — Participant</h3>
+              <p class="timeline__org">National-level hackathon</p>
+              <p class="timeline__desc">
+                Collaborated on an Android-based problem statement, building a working
+                prototype end-to-end under a tight deadline.
+              </p>
+            </div>
+          </li>
+
+          <li class="timeline__item reveal">
+            <span class="timeline__marker" aria-hidden="true"></span>
+            <div class="timeline__body card">
+              <span class="timeline__date">2024 — Present</span>
+              <h3 class="timeline__title">Open Source Contributor</h3>
+              <p class="timeline__org">GitHub</p>
+              <p class="timeline__desc">
+                Contributing small fixes and Android tooling to open-source projects while
+                learning from real-world codebases.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== 5. Resume ===== -->
+    <section id="resume" class="section">
+      <div class="container">
+        <div class="resume card reveal">
+          <div class="resume__text">
+            <span class="section__tag">05 — Resume</span>
+            <h2 class="section__title">Grab a copy</h2>
+            <p class="resume__desc">
+              A one-page PDF with my full background, projects, and skills.
+            </p>
+            <a href="resume.pdf" download class="btn btn--primary">Download Resume</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 6. Contact ===== -->
+    <section id="contact" class="section">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="section__tag">06 — Contact</span>
+          <h2 class="section__title">Get in touch</h2>
+        </header>
+
+        <div class="contact">
+          <!-- Form -->
+          <form class="contact__form card reveal" id="contactForm" novalidate>
+            <div class="field">
+              <label for="name" class="field__label">Name</label>
+              <input type="text" id="name" name="name" class="field__input" autocomplete="name" required />
+              <span class="field__error" id="nameError" aria-live="polite"></span>
+            </div>
+
+            <div class="field">
+              <label for="email" class="field__label">Email</label>
+              <input type="email" id="email" name="email" class="field__input" autocomplete="email" required />
+              <span class="field__error" id="emailError" aria-live="polite"></span>
+            </div>
+
+            <div class="field">
+              <label for="message" class="field__label">Message</label>
+              <textarea id="message" name="message" class="field__input field__input--area" rows="5" required></textarea>
+              <span class="field__error" id="messageError" aria-live="polite"></span>
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--block" id="submitBtn">
+              <span class="btn__label">Send Message</span>
+              <span class="btn__spinner" aria-hidden="true"></span>
+            </button>
+
+            <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
+
+          <!-- Side info -->
+          <aside class="contact__aside reveal">
+            <div class="card contact__info">
+              <h3 class="contact__info-title">Email</h3>
+              <a href="mailto:vansh@example.com" class="link">vansh@example.com</a>
+            </div>
+            <div class="card contact__info">
+              <h3 class="contact__info-title">Elsewhere</h3>
+              <ul class="contact__links">
+                <li><a href="https://github.com/" target="_blank" rel="noopener" class="link">GitHub &rarr;</a></li>
+                <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="link">LinkedIn &rarr;</a></li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__copy">&copy; 2026 Vansh</p>
+      <button class="to-top" id="toTop" aria-label="Back to top" title="Back to top">&uarr;</button>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
