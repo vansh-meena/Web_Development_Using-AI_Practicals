@@ -1,0 +1,466 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Product Catalogue API",
+    "version": "1.0.0",
+    "description": "RESTful API for managing a product catalogue. Supports listing with filters, search, pagination and sorting, plus full CRUD on products."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:4007",
+      "description": "Local development server"
+    }
+  ],
+  "tags": [
+    { "name": "Products", "description": "CRUD operations on products" },
+    { "name": "Health", "description": "Service health check" }
+  ],
+  "paths": {
+    "/api/products": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "List products with filtering, search, pagination and sorting",
+        "parameters": [
+          { "$ref": "#/components/parameters/category" },
+          { "$ref": "#/components/parameters/inStock" },
+          { "$ref": "#/components/parameters/search" },
+          { "$ref": "#/components/parameters/page" },
+          { "$ref": "#/components/parameters/limit" },
+          { "$ref": "#/components/parameters/sort" }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list of products",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProductList" },
+                "example": {
+                  "data": [
+                    {
+                      "_id": "665f1a2b3c4d5e6f7a8b9c01",
+                      "name": "Aurora Wireless Headphones",
+                      "description": "Over-ear wireless headphones with active noise cancelling and 30-hour battery life.",
+                      "category": "electronics",
+                      "price": 189.99,
+                      "quantity": 42,
+                      "inStock": true,
+                      "createdAt": "2026-11-01T10:00:00.000Z",
+                      "updatedAt": "2026-11-01T10:00:00.000Z"
+                    }
+                  ],
+                  "meta": { "page": 1, "limit": 10, "total": 8, "pages": 1 }
+                }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      },
+      "post": {
+        "tags": ["Products"],
+        "summary": "Create a product",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ProductInput" },
+              "examples": {
+                "valid": {
+                  "summary": "Valid product",
+                  "value": {
+                    "name": "Lumen Desk Lamp",
+                    "description": "Adjustable LED desk lamp with touch dimming.",
+                    "category": "home",
+                    "price": 59.9,
+                    "quantity": 20,
+                    "inStock": true
+                  }
+                },
+                "minimal": {
+                  "summary": "Only required fields",
+                  "value": {
+                    "name": "Orbit Mouse",
+                    "category": "electronics",
+                    "price": 39.99
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Product created. A Location header points to the new resource.",
+            "headers": {
+              "Location": {
+                "description": "URL of the created product",
+                "schema": { "type": "string" }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProductResponse" },
+                "example": {
+                  "data": {
+                    "_id": "665f1a2b3c4d5e6f7a8b9c0d",
+                    "name": "Lumen Desk Lamp",
+                    "description": "Adjustable LED desk lamp with touch dimming.",
+                    "category": "home",
+                    "price": 59.9,
+                    "quantity": 20,
+                    "inStock": true,
+                    "createdAt": "2026-11-20T09:15:00.000Z",
+                    "updatedAt": "2026-11-20T09:15:00.000Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "409": { "$ref": "#/components/responses/DuplicateKey" },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      }
+    },
+    "/api/products/{id}": {
+      "parameters": [{ "$ref": "#/components/parameters/id" }],
+      "get": {
+        "tags": ["Products"],
+        "summary": "Get a product by id",
+        "responses": {
+          "200": {
+            "description": "The product",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProductResponse" },
+                "example": {
+                  "data": {
+                    "_id": "665f1a2b3c4d5e6f7a8b9c01",
+                    "name": "Aurora Wireless Headphones",
+                    "description": "Over-ear wireless headphones with active noise cancelling.",
+                    "category": "electronics",
+                    "price": 189.99,
+                    "quantity": 42,
+                    "inStock": true,
+                    "createdAt": "2026-11-01T10:00:00.000Z",
+                    "updatedAt": "2026-11-01T10:00:00.000Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      },
+      "put": {
+        "tags": ["Products"],
+        "summary": "Replace a product (full update)",
+        "description": "Required fields must be present. Omitted optional fields are reset to their defaults.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ProductInput" },
+              "example": {
+                "name": "Aurora Wireless Headphones II",
+                "description": "Updated description.",
+                "category": "electronics",
+                "price": 179.99,
+                "quantity": 30,
+                "inStock": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated product",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProductResponse" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "409": { "$ref": "#/components/responses/DuplicateKey" },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      },
+      "patch": {
+        "tags": ["Products"],
+        "summary": "Partially update a product",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ProductPatch" },
+              "example": { "price": 169.99, "inStock": false }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated product",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ProductResponse" }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "409": { "$ref": "#/components/responses/DuplicateKey" },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      },
+      "delete": {
+        "tags": ["Products"],
+        "summary": "Delete a product",
+        "responses": {
+          "204": { "description": "Product deleted, no body" },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "500": { "$ref": "#/components/responses/ServerError" }
+        }
+      }
+    },
+    "/api/health": {
+      "get": {
+        "tags": ["Health"],
+        "summary": "Health check",
+        "responses": {
+          "200": {
+            "description": "Service status",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Health" },
+                "example": { "status": "ok", "db": "connected" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Product": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string", "example": "665f1a2b3c4d5e6f7a8b9c01" },
+          "name": { "type": "string", "maxLength": 120, "example": "Aurora Wireless Headphones" },
+          "description": { "type": "string", "maxLength": 2000, "example": "Over-ear wireless headphones." },
+          "category": { "type": "string", "enum": ["electronics", "apparel", "books", "home"] },
+          "price": { "type": "number", "minimum": 0, "example": 189.99 },
+          "quantity": { "type": "integer", "minimum": 0, "example": 42 },
+          "inStock": { "type": "boolean" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        },
+        "required": ["_id", "name", "category", "price", "quantity", "inStock", "createdAt", "updatedAt"]
+      },
+      "ProductInput": {
+        "type": "object",
+        "required": ["name", "category", "price"],
+        "properties": {
+          "name": { "type": "string", "maxLength": 120, "example": "Lumen Desk Lamp" },
+          "description": { "type": "string", "maxLength": 2000 },
+          "category": { "type": "string", "enum": ["electronics", "apparel", "books", "home"] },
+          "price": { "type": "number", "minimum": 0 },
+          "quantity": { "type": "integer", "minimum": 0, "default": 0 },
+          "inStock": { "type": "boolean", "default": true }
+        }
+      },
+      "ProductPatch": {
+        "type": "object",
+        "minProperties": 1,
+        "properties": {
+          "name": { "type": "string", "maxLength": 120 },
+          "description": { "type": "string", "maxLength": 2000 },
+          "category": { "type": "string", "enum": ["electronics", "apparel", "books", "home"] },
+          "price": { "type": "number", "minimum": 0 },
+          "quantity": { "type": "integer", "minimum": 0 },
+          "inStock": { "type": "boolean" }
+        }
+      },
+      "ProductResponse": {
+        "type": "object",
+        "properties": {
+          "data": { "$ref": "#/components/schemas/Product" }
+        }
+      },
+      "ProductList": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Product" }
+          },
+          "meta": {
+            "type": "object",
+            "properties": {
+              "page": { "type": "integer", "example": 1 },
+              "limit": { "type": "integer", "example": 10 },
+              "total": { "type": "integer", "example": 8 },
+              "pages": { "type": "integer", "example": 1 }
+            }
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": { "type": "string", "example": "VALIDATION_ERROR" },
+              "message": { "type": "string", "example": "Validation failed" },
+              "details": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "field": { "type": "string", "example": "price" },
+                    "message": { "type": "string", "example": "price must be >= 0" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Health": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "string", "enum": ["ok"], "example": "ok" },
+          "db": { "type": "string", "enum": ["connected", "disconnected"], "example": "connected" }
+        }
+      }
+    },
+    "parameters": {
+      "id": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string" },
+        "example": "665f1a2b3c4d5e6f7a8b9c01"
+      },
+      "page": {
+        "name": "page",
+        "in": "query",
+        "schema": { "type": "integer", "minimum": 1, "default": 1 },
+        "example": 1
+      },
+      "limit": {
+        "name": "limit",
+        "in": "query",
+        "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 10 },
+        "example": 10
+      },
+      "sort": {
+        "name": "sort",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "enum": ["name", "-name", "price", "-price", "quantity", "-quantity", "createdAt", "-createdAt", "updatedAt", "-updatedAt"],
+          "default": "-createdAt"
+        },
+        "example": "price"
+      },
+      "category": {
+        "name": "category",
+        "in": "query",
+        "schema": { "type": "string", "enum": ["electronics", "apparel", "books", "home"] },
+        "example": "electronics"
+      },
+      "inStock": {
+        "name": "inStock",
+        "in": "query",
+        "schema": { "type": "string", "enum": ["true", "false"] },
+        "example": "true"
+      },
+      "search": {
+        "name": "search",
+        "in": "query",
+        "schema": { "type": "string" },
+        "example": "headphones"
+      }
+    },
+    "requestBodies": {
+      "ProductInput": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/ProductInput" }
+          }
+        }
+      },
+      "ProductPatch": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/ProductPatch" }
+          }
+        }
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "Validation error or malformed JSON",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/Error" },
+            "example": {
+              "error": {
+                "code": "VALIDATION_ERROR",
+                "message": "Validation failed",
+                "details": [{ "field": "price", "message": "price is required" }]
+              }
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Product not found",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/Error" },
+            "example": {
+              "error": { "code": "NOT_FOUND", "message": "Product not found" }
+            }
+          }
+        }
+      },
+      "DuplicateKey": {
+        "description": "A product with the same name already exists",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/Error" },
+            "example": {
+              "error": {
+                "code": "DUPLICATE_KEY",
+                "message": "A product with this name already exists",
+                "details": [{ "field": "name", "message": "must be unique" }]
+              }
+            }
+          }
+        }
+      },
+      "ServerError": {
+        "description": "Unexpected server error",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/Error" },
+            "example": {
+              "error": { "code": "INTERNAL_SERVER_ERROR", "message": "Something went wrong" }
+            }
+          }
+        }
+      }
+    }
+  }
+}
