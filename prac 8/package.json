@@ -1,0 +1,23 @@
+{
+  "name": "student-management-system",
+  "version": "1.0.0",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node src/seed/students.js",
+    "dev": "concurrently -k \"npm:start\" \"npm run dev --prefix client\"",
+    "dev:client": "npm run dev --prefix client"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "concurrently": "^10.0.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongodb-memory-server": "^10.1.4",
+    "mongoose": "^8.9.5"
+  }
+}
