@@ -1,0 +1,25 @@
+{
+  "name": "platypus-university-help-center",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Full-stack AI chatbot help center for Platypus University (OpenAI, Gemini, or built-in demo FAQ).",
+  "scripts": {
+    "dev": "concurrently -n server,client -c blue,green \"npm run server\" \"npm run client\"",
+    "server": "node server/index.js",
+    "client": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "concurrently": "^9.0.1",
+    "vite": "^5.4.8"
+  }
+}

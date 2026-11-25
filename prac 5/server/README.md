@@ -12,7 +12,7 @@ When `MONGODB_URI` is empty, the server starts a temporary `mongodb-memory-serve
 
 | Variable | Default | Description |
 | --- | --- | --- |
-| `PORT` | `5001` | Port used by the Express API |
+| `PORT` | `5003` | Port used by the Express API |
 | `MONGODB_URI` | empty | MongoDB connection string |
 
 ## API
@@ -32,17 +32,17 @@ When `MONGODB_URI` is empty, the server starts a temporary `mongodb-memory-serve
 ## curl examples
 
 ```bash
-curl http://localhost:5001/api/health
+curl http://localhost:5003/api/health
 
-curl -X POST http://localhost:5001/api/tasks \
+curl -X POST http://localhost:5003/api/tasks \
   -H "Content-Type: application/json" \
   -d '{"title":"Plan release","description":"Review the checklist","priority":"high"}'
 
-curl "http://localhost:5001/api/tasks?search=release&done=false&sort=-createdAt&page=1&limit=10"
+curl "http://localhost:5003/api/tasks?search=release&done=false&sort=-createdAt&page=1&limit=10"
 
-curl -X PATCH http://localhost:5001/api/tasks/TASK_ID \
+curl -X PATCH http://localhost:5003/api/tasks/TASK_ID \
   -H "Content-Type: application/json" \
   -d '{"done":true}'
 
-curl -X DELETE http://localhost:5001/api/tasks/TASK_ID
+curl -X DELETE http://localhost:5003/api/tasks/TASK_ID
 ```

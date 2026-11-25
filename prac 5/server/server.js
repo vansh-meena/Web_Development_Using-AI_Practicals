@@ -8,7 +8,7 @@ const { connectDatabase } = require('./src/config/db');
 const { errorHandler } = require('./src/middleware/errorHandler');
 
 const app = express();
-const port = Number(process.env.PORT) || 5001;
+const port = Number(process.env.PORT) || 5003;
 let memoryServer;
 let httpServer;
 
