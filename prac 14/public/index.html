@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vigil · Local Application Quality &amp; Security Laboratory</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div id="loader" class="loader">
+    <div class="loader-wordmark">Vigil</div>
+    <div class="loader-identity">Vansh Meena · 23BCON1705</div>
+  </div>
+
+  <header class="console-header">
+    <div class="brand">
+      <span class="brand-mark">Vigil</span>
+      <span class="brand-sub">Local Application Quality &amp; Security Laboratory</span>
+    </div>
+    <div class="identity-muted">Vansh Meena · 23BCON1705</div>
+  </header>
+
+  <main class="console-main">
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Test Matrix</h2>
+        <div class="actions">
+          <button id="run-all" class="btn btn-primary">Run all</button>
+        </div>
+      </div>
+      <div class="summary" id="summary" aria-live="polite">
+        <span class="sum-pass">Passed 0</span>
+        <span class="sum-fail">Failed 0</span>
+        <span class="sum-err">Errors 0</span>
+        <span class="sum-total">Total 0</span>
+      </div>
+      <div class="table-wrap">
+        <table class="matrix">
+          <thead>
+            <tr>
+              <th>Test</th>
+              <th>Request</th>
+              <th>Expected</th>
+              <th>Actual</th>
+              <th>Headers</th>
+              <th>Time (ms)</th>
+              <th>Result</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="matrix-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Timing</h2>
+        <button id="run-timing" class="btn">Measure health endpoint</button>
+      </div>
+      <div id="timing-results" class="timing-grid"></div>
+      <div class="timing-list">
+        <h3>Proposed, not measured</h3>
+        <ul id="proposed-list"></ul>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Diagnostic Trace</h2>
+        <div class="actions">
+          <button id="clear-trace" class="btn">Clear</button>
+          <button id="export-audit" class="btn btn-primary">Export JSON audit</button>
+        </div>
+      </div>
+      <pre id="trace" class="trace" aria-live="polite"></pre>
+    </section>
+
+    <section class="panel limitations">
+      <h2>Limitations</h2>
+      <p>Vigil tests only this local application. Basic validation and header checks are not a comprehensive production security audit.</p>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
