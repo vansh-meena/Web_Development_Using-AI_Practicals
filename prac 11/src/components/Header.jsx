@@ -20,6 +20,7 @@ export default function Header({ config, loading }) {
           <div className="brand-text">
             <h1>PostForge</h1>
             <p className="tagline">AI content for blogs, emails, and social — in seconds.</p>
+            <p style={{ margin: '4px 0 0', fontSize: '11px', color: '#6b7898' }}>Vansh Meena | 23BCON1705</p>
           </div>
         </div>
         <div className="header-right">
