@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NoteLens - AI Study Notes Summarizer</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div id="banner" class="banner hidden" role="alert"></div>
+
+  <!-- AUTH VIEW -->
+  <main id="authView" class="auth-view">
+    <div class="auth-card">
+      <div class="brand">
+        <div class="brand-mark">NL</div>
+        <h1>NoteLens</h1>
+        <p class="brand-tag">Turn dense notes into clear summaries.</p>
+      </div>
+
+      <div class="tabs" role="tablist">
+        <button id="tabLogin" class="tab active" role="tab" aria-selected="true">Log in</button>
+        <button id="tabSignup" class="tab" role="tab" aria-selected="false">Sign up</button>
+      </div>
+
+      <form id="authForm" novalidate>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required />
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" minlength="8" required />
+        <p class="hint">Minimum 8 characters.</p>
+
+        <p id="authMsg" class="form-msg" role="status"></p>
+
+        <button id="authSubmit" type="submit" class="primary-btn">Log in</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- APP VIEW -->
+  <main id="appView" class="app-view hidden">
+    <header class="app-header">
+      <div class="wordmark">NoteLens</div>
+      <div class="header-right">
+        <span id="userEmail" class="user-email"></span>
+        <button id="logoutBtn" class="ghost-btn">Log out</button>
+      </div>
+    </header>
+
+    <div class="columns">
+      <!-- GENERATOR -->
+      <section class="card generator">
+        <h2>Summarize your notes</h2>
+
+        <label for="notesText">Paste your study notes</label>
+        <textarea id="notesText" maxlength="6000" placeholder="Paste at least 50 characters of lecture notes, textbook passages, or any study material..."></textarea>
+        <div class="counter-row">
+          <span id="charCount" class="counter">0 / 6000</span>
+          <span id="charHint" class="hint">Minimum 50 characters.</span>
+        </div>
+
+        <label for="styleSelect">Summary style</label>
+        <select id="styleSelect">
+          <option value="bullets">Bullet points</option>
+          <option value="paragraph">Short paragraph</option>
+          <option value="keyterms">Key terms</option>
+          <option value="exam">Exam questions</option>
+        </select>
+
+        <span class="label-static">Length</span>
+        <div class="toggle" role="group" aria-label="Summary length">
+          <button id="lenShort" class="toggle-btn active" type="button">Short</button>
+          <button id="lenMedium" class="toggle-btn" type="button">Medium</button>
+        </div>
+
+        <button id="summarizeBtn" class="primary-btn">Summarize</button>
+
+        <div id="resultCard" class="result-card hidden">
+          <div class="result-head">
+            <h3>Summary</h3>
+            <div class="result-actions">
+              <span id="demoBadge" class="badge hidden">Demo output</span>
+              <button id="copyBtn" class="ghost-btn">Copy</button>
+            </div>
+          </div>
+          <p id="resultText" class="result-text"></p>
+          <p id="savedNote" class="saved-note hidden">Saved to history.</p>
+        </div>
+      </section>
+
+      <!-- HISTORY -->
+      <section class="card history">
+        <h2>History</h2>
+        <div id="historyLoading" class="history-loading">Loading your summaries...</div>
+        <ul id="historyList" class="history-list"></ul>
+        <div id="historyEmpty" class="history-empty hidden">
+          <p>No saved summaries yet.</p>
+          <p class="hint">Your generated summaries will appear here.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
