@@ -15,6 +15,7 @@ export default function Header({ activeTab, onTabChange, demoMode }) {
           <div className="brand-text">
             <h1>Lumora</h1>
             <p className="tagline">Generate images from words. Caption photos in seconds.</p>
+            <p className="identity-line">Vansh Meena | 23BCON1705</p>
           </div>
         </div>
         <nav className="tabs" role="tablist">
